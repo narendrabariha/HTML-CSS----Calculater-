@@ -1,27 +1,27 @@
 const display = document.getElementById('display');
 
-// Function to insert value at cursor
+// Insert value at cursor
 function insertAtCursor(value) {
   const start = display.selectionStart;
   const end = display.selectionEnd;
-  const text = display.value;
+  const current = display.value;
 
-  // Add the value at the cursor
-  display.value = text.slice(0, start) + value + text.slice(end);
-  
+  // Insert value
+  display.value = current.slice(0, start) + value + current.slice(end);
+
   // Move cursor after inserted value
   const newPos = start + value.length;
   display.setSelectionRange(newPos, newPos);
   display.focus();
 }
 
-// Function to clear all
+// Clear entire display
 function clearDisplay() {
   display.value = '';
   display.focus();
 }
 
-// Function to calculate the result
+// Evaluate and show result
 function calculate() {
   try {
     display.value = eval(display.value);
@@ -32,34 +32,34 @@ function calculate() {
 }
 
 // Handle keyboard inputs
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', (event) => {
   const key = event.key;
 
-  // Numbers or operators
+  // Number or operator input
   if (!isNaN(key) || "+-*/.".includes(key)) {
     insertAtCursor(key);
     event.preventDefault();
   }
 
-  // Enter = Calculate
+  // Enter = evaluate
   if (key === 'Enter') {
     calculate();
     event.preventDefault();
   }
 
-  // Spacebar = Clear all
+  // Spacebar = clear
   if (key === ' ') {
     clearDisplay();
     event.preventDefault();
   }
 
-  // C key = Clear all
+  // 'C' = clear
   if (key.toLowerCase() === 'c') {
     clearDisplay();
     event.preventDefault();
   }
 
-  // Backspace = Delete character before cursor
+  // Backspace = delete before cursor
   if (key === 'Backspace') {
     const start = display.selectionStart;
     const end = display.selectionEnd;
@@ -68,18 +68,16 @@ document.addEventListener('keydown', function(event) {
       display.value = display.value.slice(0, start - 1) + display.value.slice(end);
       display.setSelectionRange(start - 1, start - 1);
     } else {
-      // If text is selected, delete the selection
       display.value = display.value.slice(0, start) + display.value.slice(end);
       display.setSelectionRange(start, start);
     }
-
     event.preventDefault();
   }
 
-  // Arrow keys (← →) → default behavior (do nothing here)
+  // Allow arrow keys (←, →) to move cursor
 });
 
-// When buttons are clicked
+// Handle button clicks
 function buttonClick(value) {
   if (value === '=') {
     calculate();
