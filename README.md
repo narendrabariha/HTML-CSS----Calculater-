@@ -13,6 +13,8 @@ Enter → Evaluate the result
 
 Spacebar → Clear all input
 
+Backspace → Delete input
+
 C key → Clear all input
 
 Arrow keys (← →) → Move cursor within input
