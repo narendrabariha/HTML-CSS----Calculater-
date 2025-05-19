@@ -35,7 +35,7 @@ function calculate() {
 document.addEventListener('keydown', function(event) {
   const key = event.key;
 
-  // If number or operator is pressed
+  // Numbers or operators
   if (!isNaN(key) || "+-*/.".includes(key)) {
     insertAtCursor(key);
     event.preventDefault();
@@ -47,7 +47,7 @@ document.addEventListener('keydown', function(event) {
     event.preventDefault();
   }
 
-  // Space = Clear all
+  // Spacebar = Clear all
   if (key === ' ') {
     clearDisplay();
     event.preventDefault();
@@ -59,10 +59,27 @@ document.addEventListener('keydown', function(event) {
     event.preventDefault();
   }
 
-  // Allow Backspace and Arrow keys to work normally
+  // Backspace = Delete character before cursor
+  if (key === 'Backspace') {
+    const start = display.selectionStart;
+    const end = display.selectionEnd;
+
+    if (start === end && start > 0) {
+      display.value = display.value.slice(0, start - 1) + display.value.slice(end);
+      display.setSelectionRange(start - 1, start - 1);
+    } else {
+      // If text is selected, delete the selection
+      display.value = display.value.slice(0, start) + display.value.slice(end);
+      display.setSelectionRange(start, start);
+    }
+
+    event.preventDefault();
+  }
+
+  // Arrow keys (← →) → default behavior (do nothing here)
 });
 
-// When buttons are clicked  If = → do the calculation & If C → clear all
+// When buttons are clicked
 function buttonClick(value) {
   if (value === '=') {
     calculate();
