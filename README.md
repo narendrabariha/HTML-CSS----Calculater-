@@ -1,4 +1,4 @@
-  ![Image](https://github.com/user-attachments/assets/53923ba5-f9ea-4cad-b813-a08fddfab566)
+   ![Image](https://github.com/user-attachments/assets/53923ba5-f9ea-4cad-b813-a08fddfab566)
  
 🧮 Simple Calculator Web App 
 
